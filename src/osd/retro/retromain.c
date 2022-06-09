@@ -60,6 +60,7 @@ int mame_reset = -1;
 static int ui_ipt_pushchar=-1;
 
 static int mouse_mode = 1;
+static int lightgun_hack = 0;
 static bool videoapproach1_enable = false;
 bool hide_nagscreen = false;
 bool hide_gameinfo = false;
@@ -629,6 +630,7 @@ static void check_variables(void)
       if (!strcmp(var.value, "none"))
 	 mouse_mode = 0;
    }
+
    //Shell for CPU overclock setting. Search mame_current_overclock for other pieces
    //var.key = "mame_current_overclock";
    //var.value = NULL;
@@ -1156,7 +1158,14 @@ static void initInput(running_machine* machine)
    retro_log(RETRO_LOG_INFO, "[MAME 2010] DESCRIPTION: %s\n", machine->gamedrv->description);
    retro_log(RETRO_LOG_INFO, "[MAME 2010] YEAR: %s\n", machine->gamedrv->year);
    retro_log(RETRO_LOG_INFO, "[MAME 2010] MANUFACTURER: %s\n", machine->gamedrv->manufacturer);
- 
+
+   if (BLUESHRK_LAYOUT)
+	  lightgun_hack = 1;
+   else if (GREATGUN_LAYOUT)
+	  lightgun_hack = 2;
+   else
+	  lightgun_hack = 0;
+	
    P1_state[KEY_BUTTON_9]   = 0;//RETRO_DEVICE_ID_JOYPAD_R3
    P1_state[KEY_BUTTON_8]   = 0;//RETRO_DEVICE_ID_JOYPAD_L3
    P1_state[KEY_START]      = 0;//RETRO_DEVICE_ID_JOYPAD_START
@@ -1495,22 +1504,37 @@ void retro_poll_mame_input()
 
    if (mouse_mode == 2)
    {
-   gun1X = 2 * (input_state_cb(0, RETRO_DEVICE_LIGHTGUN, 0, RETRO_DEVICE_ID_LIGHTGUN_SCREEN_X));
-   gun1Y = 2 * (input_state_cb(0, RETRO_DEVICE_LIGHTGUN, 0, RETRO_DEVICE_ID_LIGHTGUN_SCREEN_Y));
-   gun2X = 2 * (input_state_cb(1, RETRO_DEVICE_LIGHTGUN, 0, RETRO_DEVICE_ID_LIGHTGUN_SCREEN_X));
-   gun2Y = 2 * (input_state_cb(1, RETRO_DEVICE_LIGHTGUN, 0, RETRO_DEVICE_ID_LIGHTGUN_SCREEN_Y));
-   gun3X = 2 * (input_state_cb(2, RETRO_DEVICE_LIGHTGUN, 0, RETRO_DEVICE_ID_LIGHTGUN_SCREEN_X));
-   gun3Y = 2 * (input_state_cb(2, RETRO_DEVICE_LIGHTGUN, 0, RETRO_DEVICE_ID_LIGHTGUN_SCREEN_Y));
-   gun4X = 2 * (input_state_cb(3, RETRO_DEVICE_LIGHTGUN, 0, RETRO_DEVICE_ID_LIGHTGUN_SCREEN_X));
-   gun4Y = 2 * (input_state_cb(3, RETRO_DEVICE_LIGHTGUN, 0, RETRO_DEVICE_ID_LIGHTGUN_SCREEN_Y));
-   gun5X = 2 * (input_state_cb(4, RETRO_DEVICE_LIGHTGUN, 0, RETRO_DEVICE_ID_LIGHTGUN_SCREEN_X));
-   gun5Y = 2 * (input_state_cb(4, RETRO_DEVICE_LIGHTGUN, 0, RETRO_DEVICE_ID_LIGHTGUN_SCREEN_Y));
-   gun6X = 2 * (input_state_cb(5, RETRO_DEVICE_LIGHTGUN, 0, RETRO_DEVICE_ID_LIGHTGUN_SCREEN_X));
-   gun6Y = 2 * (input_state_cb(5, RETRO_DEVICE_LIGHTGUN, 0, RETRO_DEVICE_ID_LIGHTGUN_SCREEN_Y));
-   gun7X = 2 * (input_state_cb(6, RETRO_DEVICE_LIGHTGUN, 0, RETRO_DEVICE_ID_LIGHTGUN_SCREEN_X));
-   gun7Y = 2 * (input_state_cb(6, RETRO_DEVICE_LIGHTGUN, 0, RETRO_DEVICE_ID_LIGHTGUN_SCREEN_Y));
-   gun8X = 2 * (input_state_cb(7, RETRO_DEVICE_LIGHTGUN, 0, RETRO_DEVICE_ID_LIGHTGUN_SCREEN_X));
-   gun8Y = 2 * (input_state_cb(7, RETRO_DEVICE_LIGHTGUN, 0, RETRO_DEVICE_ID_LIGHTGUN_SCREEN_Y));
+      if (lightgun_hack == 1)
+      {
+         gun1X = 2.131 * (input_state_cb(0, RETRO_DEVICE_LIGHTGUN, 0, RETRO_DEVICE_ID_LIGHTGUN_SCREEN_X));
+   	 gun1Y = 2 * (input_state_cb(0, RETRO_DEVICE_LIGHTGUN, 0, RETRO_DEVICE_ID_LIGHTGUN_SCREEN_Y));
+      }
+      else if (lightgun_hack == 2)
+      {
+         gun1X = 2 * (input_state_cb(0, RETRO_DEVICE_LIGHTGUN, 0, RETRO_DEVICE_ID_LIGHTGUN_SCREEN_X));
+   	 gun1Y = 2 * (input_state_cb(0, RETRO_DEVICE_LIGHTGUN, 0, RETRO_DEVICE_ID_LIGHTGUN_SCREEN_Y)) + 12650;
+   	 gun2X = 2 * (input_state_cb(1, RETRO_DEVICE_LIGHTGUN, 0, RETRO_DEVICE_ID_LIGHTGUN_SCREEN_X));
+   	 gun2Y = 2 * (input_state_cb(1, RETRO_DEVICE_LIGHTGUN, 0, RETRO_DEVICE_ID_LIGHTGUN_SCREEN_Y)) + 12650;
+      }
+      else
+      {
+         gun1X = 2 * (input_state_cb(0, RETRO_DEVICE_LIGHTGUN, 0, RETRO_DEVICE_ID_LIGHTGUN_SCREEN_X));
+   	 gun1Y = 2 * (input_state_cb(0, RETRO_DEVICE_LIGHTGUN, 0, RETRO_DEVICE_ID_LIGHTGUN_SCREEN_Y));
+   	 gun2X = 2 * (input_state_cb(1, RETRO_DEVICE_LIGHTGUN, 0, RETRO_DEVICE_ID_LIGHTGUN_SCREEN_X));
+   	 gun2Y = 2 * (input_state_cb(1, RETRO_DEVICE_LIGHTGUN, 0, RETRO_DEVICE_ID_LIGHTGUN_SCREEN_Y));
+   	 gun3X = 2 * (input_state_cb(2, RETRO_DEVICE_LIGHTGUN, 0, RETRO_DEVICE_ID_LIGHTGUN_SCREEN_X));
+   	 gun3Y = 2 * (input_state_cb(2, RETRO_DEVICE_LIGHTGUN, 0, RETRO_DEVICE_ID_LIGHTGUN_SCREEN_Y));
+   	 gun4X = 2 * (input_state_cb(3, RETRO_DEVICE_LIGHTGUN, 0, RETRO_DEVICE_ID_LIGHTGUN_SCREEN_X));
+   	 gun4Y = 2 * (input_state_cb(3, RETRO_DEVICE_LIGHTGUN, 0, RETRO_DEVICE_ID_LIGHTGUN_SCREEN_Y));
+   	 gun5X = 2 * (input_state_cb(4, RETRO_DEVICE_LIGHTGUN, 0, RETRO_DEVICE_ID_LIGHTGUN_SCREEN_X));
+   	 gun5Y = 2 * (input_state_cb(4, RETRO_DEVICE_LIGHTGUN, 0, RETRO_DEVICE_ID_LIGHTGUN_SCREEN_Y));
+   	 gun6X = 2 * (input_state_cb(5, RETRO_DEVICE_LIGHTGUN, 0, RETRO_DEVICE_ID_LIGHTGUN_SCREEN_X));
+   	 gun6Y = 2 * (input_state_cb(5, RETRO_DEVICE_LIGHTGUN, 0, RETRO_DEVICE_ID_LIGHTGUN_SCREEN_Y));
+   	 gun7X = 2 * (input_state_cb(6, RETRO_DEVICE_LIGHTGUN, 0, RETRO_DEVICE_ID_LIGHTGUN_SCREEN_X));
+   	 gun7Y = 2 * (input_state_cb(6, RETRO_DEVICE_LIGHTGUN, 0, RETRO_DEVICE_ID_LIGHTGUN_SCREEN_Y));
+   	 gun8X = 2 * (input_state_cb(7, RETRO_DEVICE_LIGHTGUN, 0, RETRO_DEVICE_ID_LIGHTGUN_SCREEN_X));
+   	 gun8Y = 2 * (input_state_cb(7, RETRO_DEVICE_LIGHTGUN, 0, RETRO_DEVICE_ID_LIGHTGUN_SCREEN_Y));
+      }
    }
 	
    if (mouse_mode == 1)

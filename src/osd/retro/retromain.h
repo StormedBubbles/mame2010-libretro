@@ -268,6 +268,12 @@ const kt_table ktable[] = {
    {"-1",       -1,                 ITEM_ID_INVALID},
 };
 
+/* Blue Shark */
+#define BLUESHRK_LAYOUT	(core_stricmp(machine->gamedrv->name, "blueshrk") == 0) || (core_stricmp(machine->gamedrv->parent, "blueshrk") == 0)
+
+/* Great Guns */
+#define GREATGUN_LAYOUT	(core_stricmp(machine->gamedrv->name, "greatgun") == 0) || (core_stricmp(machine->gamedrv->parent, "greatgun") == 0)
+
 /* Tekken 1/2 */
 #define TEKKEN_LAYOUT	(core_stricmp(machine->gamedrv->name, "tekken") == 0) || (core_stricmp(machine->gamedrv->parent, "tekken") == 0) || \
          		(core_stricmp(machine->gamedrv->name, "tekken2") == 0) || (core_stricmp(machine->gamedrv->parent, "tekken2") == 0)
