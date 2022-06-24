@@ -61,6 +61,7 @@ static int ui_ipt_pushchar=-1;
 
 static int mouse_mode = 1;
 static int lightgun_hack = 0;
+static int lightgun_reload_mode = 0;
 static bool videoapproach1_enable = false;
 bool hide_nagscreen = false;
 bool hide_gameinfo = false;
@@ -587,6 +588,7 @@ void retro_set_environment(retro_environment_t cb)
 {
    static const struct retro_variable vars[] = {
       { "mame_current_xy_type", "XY device type (Restart); mouse|lightgun|none" },
+      { "mame_current_offscreen_position", "Lightgun offscreen position; free|fixed (top left)|fixed (bottom right)" },
       //Shell for CPU overclock setting. Search mame_current_overclock for other pieces
       //{ "mame_current_overclock", "Main CPU Overclock; 100|25|30|35|40|45|50|55|60|65|70|75|80|95|90|95|105|110|115|120" },
       { "mame_current_videoapproach1_enable", "Video approach 1 Enabled; disabled|enabled" },
@@ -629,6 +631,19 @@ static void check_variables(void)
          mouse_mode = 2;
       if (!strcmp(var.value, "none"))
 	 mouse_mode = 0;
+   }
+
+   var.key = "mame_current_offscreen_position";
+   var.value = NULL;
+   if (environ_cb(RETRO_ENVIRONMENT_GET_VARIABLE, &var) && var.value)
+   {
+      retro_log(RETRO_LOG_INFO, "[MAME 2010] lightgun_reload_mode value: %s\n", var.value);
+      if (!strcmp(var.value, "free"))
+         lightgun_reload_mode = 0;
+      if (!strcmp(var.value, "fixed (top left)"))
+         lightgun_reload_mode = 1;
+      if (!strcmp(var.value, "fixed (bottom right)"))
+	 lightgun_reload_mode = 2;
    }
 
    //Shell for CPU overclock setting. Search mame_current_overclock for other pieces
@@ -1706,63 +1721,231 @@ void retro_poll_mame_input()
    P8_state[KEY_JOYSTICK_L] = input_state_cb(7, RETRO_DEVICE_JOYPAD, 0, RETRO_DEVICE_ID_JOYPAD_LEFT);
    P8_state[KEY_JOYSTICK_R] = input_state_cb(7, RETRO_DEVICE_JOYPAD, 0, RETRO_DEVICE_ID_JOYPAD_RIGHT);
   
-      //Cursor glued to top-left corner in LIGHTGUN mode when detected as offscreen
-      //Optional Libretro "Gun Reload" input gives the same behavior in button form (again, for LIGHTGUN inputs only)
+      //Cursor glued to corresponding corner in LIGHTGUN mode when detected as offscreen if "Lightgun offscreen position" set to fixed
+      //Optional Libretro "Gun Reload" input gives the same behavior in button form (again, for LIGHTGUN inputs only) and defaults to top left in "free" mode
       //Mouse mode and Joystick input do not respond well to forced reload button, so that function is not available in those modes
-      if (((mouse_mode == 2) && (input_state_cb(0, RETRO_DEVICE_LIGHTGUN, 0, RETRO_DEVICE_ID_LIGHTGUN_IS_OFFSCREEN))) || input_state_cb(0, RETRO_DEVICE_LIGHTGUN, 0, RETRO_DEVICE_ID_LIGHTGUN_RELOAD))
+      if (mouse_mode == 2 && input_state_cb(0, RETRO_DEVICE_LIGHTGUN, 0, RETRO_DEVICE_ID_LIGHTGUN_IS_OFFSCREEN))
         {
-	//      //top left
-	      gun1X = -65534;
-	      gun1Y = -65534;
+	      if (lightgun_reload_mode == 1)
+	      {
+	         gun1X = -65534;
+	         gun1Y = -65534;
+	      }
+	      if (lightgun_reload_mode == 2)
+	      {
+	         gun1X = 65534;
+	         gun1Y = 65534;
+	      }
+        }
+	
+      if (mouse_mode == 2 && input_state_cb(0, RETRO_DEVICE_LIGHTGUN, 0, RETRO_DEVICE_ID_LIGHTGUN_RELOAD))
+        {
+	      if (lightgun_reload_mode == 2)
+	      {
+	         gun1X = 65534;
+	         gun1Y = 65534;
+	      }
+	      else
+	      {
+	         gun1X = -65534;
+	         gun1Y = -65534;
+	      }
         }
 
-      if (((mouse_mode == 2) && (input_state_cb(1, RETRO_DEVICE_LIGHTGUN, 0, RETRO_DEVICE_ID_LIGHTGUN_IS_OFFSCREEN))) || input_state_cb(1, RETRO_DEVICE_LIGHTGUN, 0, RETRO_DEVICE_ID_LIGHTGUN_RELOAD))
+      if (mouse_mode == 2 && input_state_cb(1, RETRO_DEVICE_LIGHTGUN, 0, RETRO_DEVICE_ID_LIGHTGUN_IS_OFFSCREEN))
         {
-	//      //top left
-	      gun2X = -65534;
-	      gun2Y = -65534;
+	      if (lightgun_reload_mode == 1)
+	      {
+	         gun2X = -65534;
+	         gun2Y = -65534;
+	      }
+	      if (lightgun_reload_mode == 2)
+	      {
+	         gun2X = 65534;
+	         gun2Y = 65534;
+	      }
         }
 	
-      if (((mouse_mode == 2) && (input_state_cb(2, RETRO_DEVICE_LIGHTGUN, 0, RETRO_DEVICE_ID_LIGHTGUN_IS_OFFSCREEN))) || input_state_cb(2, RETRO_DEVICE_LIGHTGUN, 0, RETRO_DEVICE_ID_LIGHTGUN_RELOAD))
+      if (mouse_mode == 2 && input_state_cb(1, RETRO_DEVICE_LIGHTGUN, 0, RETRO_DEVICE_ID_LIGHTGUN_RELOAD))
         {
-	//      //top left
-	      gun3X = -65534;
-	      gun3Y = -65534;
+	      if (lightgun_reload_mode == 2)
+	      {
+	         gun2X = 65534;
+	         gun2Y = 65534;
+	      }
+	      else
+	      {
+	         gun2X = -65534;
+	         gun2Y = -65534;
+	      }
+        }
+
+      if (mouse_mode == 2 && input_state_cb(2, RETRO_DEVICE_LIGHTGUN, 0, RETRO_DEVICE_ID_LIGHTGUN_IS_OFFSCREEN))
+        {
+	      if (lightgun_reload_mode == 1)
+	      {
+	         gun3X = -65534;
+	         gun3Y = -65534;
+	      }
+	      if (lightgun_reload_mode == 2)
+	      {
+	         gun3X = 65534;
+	         gun3Y = 65534;
+	      }
         }
 	
-      if (((mouse_mode == 2) && (input_state_cb(3, RETRO_DEVICE_LIGHTGUN, 0, RETRO_DEVICE_ID_LIGHTGUN_IS_OFFSCREEN))) || input_state_cb(3, RETRO_DEVICE_LIGHTGUN, 0, RETRO_DEVICE_ID_LIGHTGUN_RELOAD))
+      if (mouse_mode == 2 && input_state_cb(2, RETRO_DEVICE_LIGHTGUN, 0, RETRO_DEVICE_ID_LIGHTGUN_RELOAD))
         {
-	//      //top left
-	      gun4X = -65534;
-	      gun4Y = -65534;
+	      if (lightgun_reload_mode == 2)
+	      {
+	         gun3X = 65534;
+	         gun3Y = 65534;
+	      }
+	      else
+	      {
+	         gun3X = -65534;
+	         gun3Y = -65534;
+	      }
+        }
+
+      if (mouse_mode == 2 && input_state_cb(3, RETRO_DEVICE_LIGHTGUN, 0, RETRO_DEVICE_ID_LIGHTGUN_IS_OFFSCREEN))
+        {
+	      if (lightgun_reload_mode == 1)
+	      {
+	         gun4X = -65534;
+	         gun4Y = -65534;
+	      }
+	      if (lightgun_reload_mode == 2)
+	      {
+	         gun4X = 65534;
+	         gun4Y = 65534;
+	      }
         }
 	
-      if (((mouse_mode == 2) && (input_state_cb(4, RETRO_DEVICE_LIGHTGUN, 0, RETRO_DEVICE_ID_LIGHTGUN_IS_OFFSCREEN))) || input_state_cb(4, RETRO_DEVICE_LIGHTGUN, 0, RETRO_DEVICE_ID_LIGHTGUN_RELOAD))
+      if (mouse_mode == 2 && input_state_cb(3, RETRO_DEVICE_LIGHTGUN, 0, RETRO_DEVICE_ID_LIGHTGUN_RELOAD))
         {
-	//      //top left
-	      gun5X = -65534;
-	      gun5Y = -65534;
+	      if (lightgun_reload_mode == 2)
+	      {
+	         gun4X = 65534;
+	         gun4Y = 65534;
+	      }
+	      else
+	      {
+	         gun4X = -65534;
+	         gun4Y = -65534;
+	      }
+        }
+
+      if (mouse_mode == 2 && input_state_cb(4, RETRO_DEVICE_LIGHTGUN, 0, RETRO_DEVICE_ID_LIGHTGUN_IS_OFFSCREEN))
+        {
+	      if (lightgun_reload_mode == 1)
+	      {
+	         gun5X = -65534;
+	         gun5Y = -65534;
+	      }
+	      if (lightgun_reload_mode == 2)
+	      {
+	         gun5X = 65534;
+	         gun5Y = 65534;
+	      }
         }
 	
-      if (((mouse_mode == 2) && (input_state_cb(5, RETRO_DEVICE_LIGHTGUN, 0, RETRO_DEVICE_ID_LIGHTGUN_IS_OFFSCREEN))) || input_state_cb(5, RETRO_DEVICE_LIGHTGUN, 0, RETRO_DEVICE_ID_LIGHTGUN_RELOAD))
+      if (mouse_mode == 2 && input_state_cb(4, RETRO_DEVICE_LIGHTGUN, 0, RETRO_DEVICE_ID_LIGHTGUN_RELOAD))
         {
-	//      //top left
-	      gun6X = -65534;
-	      gun6Y = -65534;
+	      if (lightgun_reload_mode == 2)
+	      {
+	         gun5X = 65534;
+	         gun5Y = 65534;
+	      }
+	      else
+	      {
+	         gun5X = -65534;
+	         gun5Y = -65534;
+	      }
+        }
+
+      if (mouse_mode == 2 && input_state_cb(5, RETRO_DEVICE_LIGHTGUN, 0, RETRO_DEVICE_ID_LIGHTGUN_IS_OFFSCREEN))
+        {
+	      if (lightgun_reload_mode == 1)
+	      {
+	         gun6X = -65534;
+	         gun6Y = -65534;
+	      }
+	      if (lightgun_reload_mode == 2)
+	      {
+	         gun6X = 65534;
+	         gun6Y = 65534;
+	      }
         }
 	
-      if (((mouse_mode == 2) && (input_state_cb(6, RETRO_DEVICE_LIGHTGUN, 0, RETRO_DEVICE_ID_LIGHTGUN_IS_OFFSCREEN))) || input_state_cb(6, RETRO_DEVICE_LIGHTGUN, 0, RETRO_DEVICE_ID_LIGHTGUN_RELOAD))
+      if (mouse_mode == 2 && input_state_cb(5, RETRO_DEVICE_LIGHTGUN, 0, RETRO_DEVICE_ID_LIGHTGUN_RELOAD))
         {
-	//      //top left
-	      gun7X = -65534;
-	      gun7Y = -65534;
+	      if (lightgun_reload_mode == 2)
+	      {
+	         gun6X = 65534;
+	         gun6Y = 65534;
+	      }
+	      else
+	      {
+	         gun6X = -65534;
+	         gun6Y = -65534;
+	      }
+        }
+
+      if (mouse_mode == 2 && input_state_cb(6, RETRO_DEVICE_LIGHTGUN, 0, RETRO_DEVICE_ID_LIGHTGUN_IS_OFFSCREEN))
+        {
+	      if (lightgun_reload_mode == 1)
+	      {
+	         gun7X = -65534;
+	         gun7Y = -65534;
+	      }
+	      if (lightgun_reload_mode == 2)
+	      {
+	         gun7X = 65534;
+	         gun7Y = 65534;
+	      }
         }
 	
-      if (((mouse_mode == 2) && (input_state_cb(7, RETRO_DEVICE_LIGHTGUN, 0, RETRO_DEVICE_ID_LIGHTGUN_IS_OFFSCREEN))) || input_state_cb(7, RETRO_DEVICE_LIGHTGUN, 0, RETRO_DEVICE_ID_LIGHTGUN_RELOAD))
+      if (mouse_mode == 2 && input_state_cb(6, RETRO_DEVICE_LIGHTGUN, 0, RETRO_DEVICE_ID_LIGHTGUN_RELOAD))
         {
-	//      //top left
-	      gun8X = -65534;
-	      gun8Y = -65534;
+	      if (lightgun_reload_mode == 2)
+	      {
+	         gun7X = 65534;
+	         gun7Y = 65534;
+	      }
+	      else
+	      {
+	         gun7X = -65534;
+	         gun7Y = -65534;
+	      }
+        }
+
+      if (mouse_mode == 2 && input_state_cb(7, RETRO_DEVICE_LIGHTGUN, 0, RETRO_DEVICE_ID_LIGHTGUN_IS_OFFSCREEN))
+        {
+	      if (lightgun_reload_mode == 1)
+	      {
+	         gun8X = -65534;
+	         gun8Y = -65534;
+	      }
+	      if (lightgun_reload_mode == 2)
+	      {
+	         gun8X = 65534;
+	         gun8Y = 65534;
+	      }
+        }
+	
+      if (mouse_mode == 2 && input_state_cb(7, RETRO_DEVICE_LIGHTGUN, 0, RETRO_DEVICE_ID_LIGHTGUN_RELOAD))
+        {
+	      if (lightgun_reload_mode == 2)
+	      {
+	         gun8X = 65534;
+	         gun8Y = 65534;
+	      }
+	      else
+	      {
+	         gun8X = -65534;
+	         gun8Y = -65534;
+	      }
         }
 
 //Shell for CPU overclock setting. Search mame_current_overclock for other pieces
