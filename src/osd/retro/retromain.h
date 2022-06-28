@@ -274,6 +274,11 @@ const kt_table ktable[] = {
 /* Great Guns */
 #define GREATGUN_LAYOUT	(core_stricmp(machine->gamedrv->name, "greatgun") == 0) || (core_stricmp(machine->gamedrv->parent, "greatgun") == 0)
 
+/* PlayChoice-10 */
+#define PLAYCH10_LAYOUT	(core_stricmp(machine->gamedrv->name, "pc_duckh") == 0) || (core_stricmp(machine->gamedrv->parent, "pc_duckh") == 0) || \
+         		(core_stricmp(machine->gamedrv->name, "pc_hgaly") == 0) || (core_stricmp(machine->gamedrv->parent, "pc_hgaly") == 0) || \
+         		(core_stricmp(machine->gamedrv->name, "pc_wgnmn") == 0) || (core_stricmp(machine->gamedrv->parent, "pc_wgnmn") == 0)
+
 /* Tekken 1/2 */
 #define TEKKEN_LAYOUT	(core_stricmp(machine->gamedrv->name, "tekken") == 0) || (core_stricmp(machine->gamedrv->parent, "tekken") == 0) || \
          		(core_stricmp(machine->gamedrv->name, "tekken2") == 0) || (core_stricmp(machine->gamedrv->parent, "tekken2") == 0)
