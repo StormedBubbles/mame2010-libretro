@@ -279,6 +279,9 @@ const kt_table ktable[] = {
          		(core_stricmp(machine->gamedrv->name, "pc_hgaly") == 0) || (core_stricmp(machine->gamedrv->parent, "pc_hgaly") == 0) || \
          		(core_stricmp(machine->gamedrv->name, "pc_wgnmn") == 0) || (core_stricmp(machine->gamedrv->parent, "pc_wgnmn") == 0)
 
+/* Space Walk */
+#define SPACWALK_LAYOUT	(core_stricmp(machine->gamedrv->name, "spacwalk") == 0) || (core_stricmp(machine->gamedrv->parent, "spacwalk") == 0)
+
 /* Tekken 1/2 */
 #define TEKKEN_LAYOUT	(core_stricmp(machine->gamedrv->name, "tekken") == 0) || (core_stricmp(machine->gamedrv->parent, "tekken") == 0) || \
          		(core_stricmp(machine->gamedrv->name, "tekken2") == 0) || (core_stricmp(machine->gamedrv->parent, "tekken2") == 0)
