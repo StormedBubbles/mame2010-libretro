@@ -1183,6 +1183,8 @@ static void initInput(running_machine* machine)
 	  lightgun_hack = 3;
    else if (SPACWALK_LAYOUT)
 	  lightgun_hack = 4;
+   else if (BORNTOFI_LAYOUT)
+	  lightgun_hack = 5;
    else
 	  lightgun_hack = 0;
 	
@@ -1575,6 +1577,14 @@ void retro_poll_mame_input()
    	 gun1Y = 2 * (input_state_cb(0, RETRO_DEVICE_LIGHTGUN, 0, RETRO_DEVICE_ID_LIGHTGUN_SCREEN_Y));
    	 gun2X = 2 * (input_state_cb(1, RETRO_DEVICE_LIGHTGUN, 0, RETRO_DEVICE_ID_LIGHTGUN_SCREEN_X)) - 20123;
    	 gun2Y = 2 * (input_state_cb(1, RETRO_DEVICE_LIGHTGUN, 0, RETRO_DEVICE_ID_LIGHTGUN_SCREEN_Y));
+      }
+
+      if (lightgun_hack == 5) //borntofi
+      {
+         gun1X = 2 * (input_state_cb(0, RETRO_DEVICE_LIGHTGUN, 0, RETRO_DEVICE_ID_LIGHTGUN_SCREEN_X));
+   	 gun1Y = 2.0706 * (input_state_cb(0, RETRO_DEVICE_LIGHTGUN, 0, RETRO_DEVICE_ID_LIGHTGUN_SCREEN_Y)) - 1414;
+   	 gun2X = 2 * (input_state_cb(1, RETRO_DEVICE_LIGHTGUN, 0, RETRO_DEVICE_ID_LIGHTGUN_SCREEN_X));
+   	 gun2Y = 2.0706 * (input_state_cb(1, RETRO_DEVICE_LIGHTGUN, 0, RETRO_DEVICE_ID_LIGHTGUN_SCREEN_Y)) - 1414;
       }
    }
 	

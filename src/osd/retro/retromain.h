@@ -271,6 +271,9 @@ const kt_table ktable[] = {
 /* Blue Shark */
 #define BLUESHRK_LAYOUT	(core_stricmp(machine->gamedrv->name, "blueshrk") == 0) || (core_stricmp(machine->gamedrv->parent, "blueshrk") == 0)
 
+/* Born to Fight */
+#define BORNTOFI_LAYOUT	(core_stricmp(machine->gamedrv->name, "borntofi") == 0) || (core_stricmp(machine->gamedrv->parent, "borntofi") == 0)
+
 /* Great Guns */
 #define GREATGUN_LAYOUT	(core_stricmp(machine->gamedrv->name, "greatgun") == 0) || (core_stricmp(machine->gamedrv->parent, "greatgun") == 0)
 
