@@ -277,6 +277,9 @@ const kt_table ktable[] = {
 /* Great Guns */
 #define GREATGUN_LAYOUT	(core_stricmp(machine->gamedrv->name, "greatgun") == 0) || (core_stricmp(machine->gamedrv->parent, "greatgun") == 0)
 
+/* Lucky & Wild */
+#define LUCKYWLD_LAYOUT	(core_stricmp(machine->gamedrv->name, "luckywld") == 0) || (core_stricmp(machine->gamedrv->parent, "luckywld") == 0)
+
 /* PlayChoice-10 */
 #define PLAYCH10_LAYOUT	(core_stricmp(machine->gamedrv->name, "pc_duckh") == 0) || (core_stricmp(machine->gamedrv->parent, "pc_duckh") == 0) || \
          		(core_stricmp(machine->gamedrv->name, "pc_hgaly") == 0) || (core_stricmp(machine->gamedrv->parent, "pc_hgaly") == 0) || \
