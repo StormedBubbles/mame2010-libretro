@@ -1526,108 +1526,599 @@ void retro_poll_mame_input()
       i++;
    } while (ktable[i].retro_key_name != -1);
 
+   int gun1Xr = input_state_cb(0, RETRO_DEVICE_LIGHTGUN, 0, RETRO_DEVICE_ID_LIGHTGUN_SCREEN_X);
+   int gun1Yr = input_state_cb(0, RETRO_DEVICE_LIGHTGUN, 0, RETRO_DEVICE_ID_LIGHTGUN_SCREEN_Y);
+   int gun2Xr = input_state_cb(1, RETRO_DEVICE_LIGHTGUN, 0, RETRO_DEVICE_ID_LIGHTGUN_SCREEN_X);
+   int gun2Yr = input_state_cb(1, RETRO_DEVICE_LIGHTGUN, 0, RETRO_DEVICE_ID_LIGHTGUN_SCREEN_Y);
+   int gun3Xr = input_state_cb(2, RETRO_DEVICE_LIGHTGUN, 0, RETRO_DEVICE_ID_LIGHTGUN_SCREEN_X);
+   int gun3Yr = input_state_cb(2, RETRO_DEVICE_LIGHTGUN, 0, RETRO_DEVICE_ID_LIGHTGUN_SCREEN_Y);
+   int gun4Xr = input_state_cb(3, RETRO_DEVICE_LIGHTGUN, 0, RETRO_DEVICE_ID_LIGHTGUN_SCREEN_X);
+   int gun4Yr = input_state_cb(3, RETRO_DEVICE_LIGHTGUN, 0, RETRO_DEVICE_ID_LIGHTGUN_SCREEN_Y);
+   int gun5Xr = input_state_cb(4, RETRO_DEVICE_LIGHTGUN, 0, RETRO_DEVICE_ID_LIGHTGUN_SCREEN_X);
+   int gun5Yr = input_state_cb(4, RETRO_DEVICE_LIGHTGUN, 0, RETRO_DEVICE_ID_LIGHTGUN_SCREEN_Y);
+   int gun6Xr = input_state_cb(5, RETRO_DEVICE_LIGHTGUN, 0, RETRO_DEVICE_ID_LIGHTGUN_SCREEN_X);
+   int gun6Yr = input_state_cb(5, RETRO_DEVICE_LIGHTGUN, 0, RETRO_DEVICE_ID_LIGHTGUN_SCREEN_Y);
+   int gun7Xr = input_state_cb(6, RETRO_DEVICE_LIGHTGUN, 0, RETRO_DEVICE_ID_LIGHTGUN_SCREEN_X);
+   int gun7Yr = input_state_cb(6, RETRO_DEVICE_LIGHTGUN, 0, RETRO_DEVICE_ID_LIGHTGUN_SCREEN_Y);
+   int gun8Xr = input_state_cb(7, RETRO_DEVICE_LIGHTGUN, 0, RETRO_DEVICE_ID_LIGHTGUN_SCREEN_X);
+   int gun8Yr = input_state_cb(7, RETRO_DEVICE_LIGHTGUN, 0, RETRO_DEVICE_ID_LIGHTGUN_SCREEN_Y);
+   int luckyx = 2 * gun2Xr - 13351;
+   int gun1Xs, gun2Xs, gun3Xs, gun4Xs, gun5Xs, gun6Xs, gun7Xs, gun8Xs;
+   int gun1Ys, gun2Ys, gun3Ys, gun4Ys, gun5Ys, gun6Ys, gun7Ys, gun8Ys;
+
    if (mouse_mode == 2)
    {
-      gun1X = 2 * (input_state_cb(0, RETRO_DEVICE_LIGHTGUN, 0, RETRO_DEVICE_ID_LIGHTGUN_SCREEN_X));
-      gun1Y = 2 * (input_state_cb(0, RETRO_DEVICE_LIGHTGUN, 0, RETRO_DEVICE_ID_LIGHTGUN_SCREEN_Y));
-      gun2X = 2 * (input_state_cb(1, RETRO_DEVICE_LIGHTGUN, 0, RETRO_DEVICE_ID_LIGHTGUN_SCREEN_X));
-      gun2Y = 2 * (input_state_cb(1, RETRO_DEVICE_LIGHTGUN, 0, RETRO_DEVICE_ID_LIGHTGUN_SCREEN_Y));
-      gun3X = 2 * (input_state_cb(2, RETRO_DEVICE_LIGHTGUN, 0, RETRO_DEVICE_ID_LIGHTGUN_SCREEN_X));
-      gun3Y = 2 * (input_state_cb(2, RETRO_DEVICE_LIGHTGUN, 0, RETRO_DEVICE_ID_LIGHTGUN_SCREEN_Y));
-      gun4X = 2 * (input_state_cb(3, RETRO_DEVICE_LIGHTGUN, 0, RETRO_DEVICE_ID_LIGHTGUN_SCREEN_X));
-      gun4Y = 2 * (input_state_cb(3, RETRO_DEVICE_LIGHTGUN, 0, RETRO_DEVICE_ID_LIGHTGUN_SCREEN_Y));
-      gun5X = 2 * (input_state_cb(4, RETRO_DEVICE_LIGHTGUN, 0, RETRO_DEVICE_ID_LIGHTGUN_SCREEN_X));
-      gun5Y = 2 * (input_state_cb(4, RETRO_DEVICE_LIGHTGUN, 0, RETRO_DEVICE_ID_LIGHTGUN_SCREEN_Y));
-      gun6X = 2 * (input_state_cb(5, RETRO_DEVICE_LIGHTGUN, 0, RETRO_DEVICE_ID_LIGHTGUN_SCREEN_X));
-      gun6Y = 2 * (input_state_cb(5, RETRO_DEVICE_LIGHTGUN, 0, RETRO_DEVICE_ID_LIGHTGUN_SCREEN_Y));
-      gun7X = 2 * (input_state_cb(6, RETRO_DEVICE_LIGHTGUN, 0, RETRO_DEVICE_ID_LIGHTGUN_SCREEN_X));
-      gun7Y = 2 * (input_state_cb(6, RETRO_DEVICE_LIGHTGUN, 0, RETRO_DEVICE_ID_LIGHTGUN_SCREEN_Y));
-      gun8X = 2 * (input_state_cb(7, RETRO_DEVICE_LIGHTGUN, 0, RETRO_DEVICE_ID_LIGHTGUN_SCREEN_X));
-      gun8Y = 2 * (input_state_cb(7, RETRO_DEVICE_LIGHTGUN, 0, RETRO_DEVICE_ID_LIGHTGUN_SCREEN_Y));
-
       if (lightgun_hack == 1) //blueshrk
       {
-         gun1X = 2.131 * (input_state_cb(0, RETRO_DEVICE_LIGHTGUN, 0, RETRO_DEVICE_ID_LIGHTGUN_SCREEN_X));
-   	 gun1Y = 2 * (input_state_cb(0, RETRO_DEVICE_LIGHTGUN, 0, RETRO_DEVICE_ID_LIGHTGUN_SCREEN_Y));
+         gun1Xs = 2.131 * gun1Xr;
+	 gun1Ys = 2 * gun1Yr;
+         gun2Xs = 2.131 * gun2Xr;
+	 gun2Ys = 2 * gun2Yr;
+         gun3Xs = 2.131 * gun3Xr;
+	 gun3Ys = 2 * gun3Yr;
+         gun4Xs = 2.131 * gun4Xr;
+	 gun4Ys = 2 * gun4Yr;
+         gun5Xs = 2.131 * gun5Xr;
+	 gun5Ys = 2 * gun5Yr;
+         gun6Xs = 2.131 * gun6Xr;
+	 gun6Ys = 2 * gun6Yr;
+         gun7Xs = 2.131 * gun7Xr;
+	 gun7Ys = 2 * gun7Yr;
+         gun8Xs = 2.131 * gun8Xr;
+	 gun8Ys = 2 * gun8Yr;
       }
-
-      if (lightgun_hack == 2) //greatgun
+      else if (lightgun_hack == 2) //greatgun
       {
-         gun1X = 2 * (input_state_cb(0, RETRO_DEVICE_LIGHTGUN, 0, RETRO_DEVICE_ID_LIGHTGUN_SCREEN_X));
-   	 gun1Y = 2 * (input_state_cb(0, RETRO_DEVICE_LIGHTGUN, 0, RETRO_DEVICE_ID_LIGHTGUN_SCREEN_Y)) + 12650;
-   	 gun2X = 2 * (input_state_cb(1, RETRO_DEVICE_LIGHTGUN, 0, RETRO_DEVICE_ID_LIGHTGUN_SCREEN_X));
-   	 gun2Y = 2 * (input_state_cb(1, RETRO_DEVICE_LIGHTGUN, 0, RETRO_DEVICE_ID_LIGHTGUN_SCREEN_Y)) + 12650;
+         gun1Xs = 2 * gun1Xr;
+	 gun1Ys = 2 * gun1Yr + 12650;
+         gun2Xs = 2 * gun2Xr;
+	 gun2Ys = 2 * gun2Yr + 12650;
+         gun3Xs = 2 * gun3Xr;
+	 gun3Ys = 2 * gun3Yr + 12650;
+         gun4Xs = 2 * gun4Xr;
+	 gun4Ys = 2 * gun4Yr + 12650;
+         gun5Xs = 2 * gun5Xr;
+	 gun5Ys = 2 * gun5Yr + 12650;
+         gun6Xs = 2 * gun6Xr;
+	 gun6Ys = 2 * gun6Yr + 12650;
+         gun7Xs = 2 * gun7Xr;
+	 gun7Ys = 2 * gun7Yr + 12650;
+         gun8Xs = 2 * gun8Xr;
+	 gun8Ys = 2 * gun8Yr + 12650;
       }
-
-      if (lightgun_hack == 3) //playch10 (pc_duckh/pc_hgaly/pc_wgnmn)
-	      		      //GUNCODE_1 = single screen
-	      		      //GUNCODE_2 = stacked
-	      		      //GUNCODE_3 = side by side
-	      		      //Use lightgun device in port 1 for all cases. Just change rom.cfg to corresponding GUNCODE
+      else if (lightgun_hack == 3) //playch10 (pc_duckh/pc_hgaly/pc_wgnmn)
+	                           //GUNCODE_1 = single screen
+	      		           //GUNCODE_2 = stacked
+	      		           //GUNCODE_3 = side by side
+	      		           //Use lightgun device in port 1 for all cases. Just change rom.cfg to corresponding GUNCODE
       {
-         gun1X = 2 * (input_state_cb(0, RETRO_DEVICE_LIGHTGUN, 0, RETRO_DEVICE_ID_LIGHTGUN_SCREEN_X));
-   	 gun1Y = 2 * (input_state_cb(0, RETRO_DEVICE_LIGHTGUN, 0, RETRO_DEVICE_ID_LIGHTGUN_SCREEN_Y));
-   	 gun2X = 2 * (input_state_cb(0, RETRO_DEVICE_LIGHTGUN, 0, RETRO_DEVICE_ID_LIGHTGUN_SCREEN_X));
-   	 gun2Y = 4 * (input_state_cb(0, RETRO_DEVICE_LIGHTGUN, 0, RETRO_DEVICE_ID_LIGHTGUN_SCREEN_Y)) - 65534;
-   	 gun3X = 4 * (input_state_cb(0, RETRO_DEVICE_LIGHTGUN, 0, RETRO_DEVICE_ID_LIGHTGUN_SCREEN_X)) - 65534;
-   	 gun3Y = 2 * (input_state_cb(0, RETRO_DEVICE_LIGHTGUN, 0, RETRO_DEVICE_ID_LIGHTGUN_SCREEN_Y));
+         gun1Xs = 2 * gun1Xr;
+	 gun1Ys = 2 * gun1Yr;
+	 gun2Xs = 2 * gun2Xr;
+	 gun2Ys = 4 * gun2Yr - 65534;
+	 gun3Xs = 4 * gun3Xr - 65534;
+	 gun3Ys = 2 * gun3Yr;
+         gun4Xs = 2 * gun4Xr;
+	 gun4Ys = 2 * gun4Yr;
+         gun5Xs = 2 * gun5Xr;
+	 gun5Ys = 2 * gun5Yr;
+         gun6Xs = 2 * gun6Xr;
+	 gun6Ys = 2 * gun6Yr;
+         gun7Xs = 2 * gun7Xr;
+	 gun7Ys = 2 * gun7Yr;
+         gun8Xs = 2 * gun8Xr;
+	 gun8Ys = 2 * gun8Yr;
       }
-
-      if (lightgun_hack == 4) //spacwalk
+      else if (lightgun_hack == 4) //spacwalk
       {
-         gun1X = 2 * (input_state_cb(0, RETRO_DEVICE_LIGHTGUN, 0, RETRO_DEVICE_ID_LIGHTGUN_SCREEN_X)) - 20123;
-   	 gun1Y = 2 * (input_state_cb(0, RETRO_DEVICE_LIGHTGUN, 0, RETRO_DEVICE_ID_LIGHTGUN_SCREEN_Y));
-   	 gun2X = 2 * (input_state_cb(1, RETRO_DEVICE_LIGHTGUN, 0, RETRO_DEVICE_ID_LIGHTGUN_SCREEN_X)) - 20123;
-   	 gun2Y = 2 * (input_state_cb(1, RETRO_DEVICE_LIGHTGUN, 0, RETRO_DEVICE_ID_LIGHTGUN_SCREEN_Y));
+         gun1Xs = 2 * gun1Xr - 20123;
+	 gun1Ys = 2 * gun1Yr;
+         gun2Xs = 2 * gun2Xr - 20123;
+	 gun2Ys = 2 * gun2Yr;
+         gun3Xs = 2 * gun3Xr - 20123;
+	 gun3Ys = 2 * gun3Yr;
+         gun4Xs = 2 * gun4Xr - 20123;
+	 gun4Ys = 2 * gun4Yr;
+         gun5Xs = 2 * gun5Xr - 20123;
+	 gun5Ys = 2 * gun5Yr;
+         gun6Xs = 2 * gun6Xr - 20123;
+	 gun6Ys = 2 * gun6Yr;
+         gun7Xs = 2 * gun7Xr - 20123;
+	 gun7Ys = 2 * gun7Yr;
+         gun8Xs = 2 * gun8Xr - 20123;
+	 gun8Ys = 2 * gun8Yr;
       }
-
-      if (lightgun_hack == 5) //borntofi
+      else if (lightgun_hack == 5) //borntofi
       {
-         gun1X = 2 * (input_state_cb(0, RETRO_DEVICE_LIGHTGUN, 0, RETRO_DEVICE_ID_LIGHTGUN_SCREEN_X));
-   	 gun1Y = 2.0706 * (input_state_cb(0, RETRO_DEVICE_LIGHTGUN, 0, RETRO_DEVICE_ID_LIGHTGUN_SCREEN_Y)) - 1414;
-   	 gun2X = 2 * (input_state_cb(1, RETRO_DEVICE_LIGHTGUN, 0, RETRO_DEVICE_ID_LIGHTGUN_SCREEN_X));
-   	 gun2Y = 2.0706 * (input_state_cb(1, RETRO_DEVICE_LIGHTGUN, 0, RETRO_DEVICE_ID_LIGHTGUN_SCREEN_Y)) - 1414;
+         gun1Xs = 2 * gun1Xr;
+	 gun1Ys = 2.0706 * gun1Yr - 1414;
+         gun2Xs = 2 * gun2Xr;
+	 gun2Ys = 2.0706 * gun2Yr - 1414;
+         gun3Xs = 2 * gun3Xr;
+	 gun3Ys = 2.0706 * gun3Yr - 1414;
+         gun4Xs = 2 * gun4Xr;
+	 gun4Ys = 2.0706 * gun4Yr - 1414;
+         gun5Xs = 2 * gun5Xr;
+	 gun5Ys = 2.0706 * gun5Yr - 1414;
+         gun6Xs = 2 * gun6Xr;
+	 gun6Ys = 2.0706 * gun6Yr - 1414;
+         gun7Xs = 2 * gun7Xr;
+	 gun7Ys = 2.0706 * gun7Yr - 1414;
+         gun8Xs = 2 * gun8Xr;
+	 gun8Ys = 2.0706 * gun8Yr - 1414;
       }
-
-      int luckyx = 2 * (input_state_cb(1, RETRO_DEVICE_LIGHTGUN, 0, RETRO_DEVICE_ID_LIGHTGUN_SCREEN_X)) - 13351;
-      if (lightgun_hack == 6) //luckywld
+      else if (lightgun_hack == 6) //luckywld
       {
+	 gun1Xs = 2 * gun1Xr;
+	 gun1Ys = 2 * gun1Yr;
+	 gun3Xs = 2 * gun3Xr;
+	 gun3Ys = 2 * gun3Yr;
+	 gun4Xs = 2 * gun4Xr;
+	 gun4Ys = 2 * gun4Yr;
+	 gun5Xs = 2 * gun5Xr;
+	 gun5Ys = 2 * gun5Yr;
+	 gun6Xs = 2 * gun6Xr;
+	 gun6Ys = 2 * gun6Yr;
+	 gun7Xs = 2 * gun7Xr;
+	 gun7Ys = 2 * gun7Yr;
+	 gun8Xs = 2 * gun8Xr;
+	 gun8Ys = 2 * gun8Yr;
+
          if (luckyx < -65000) //Zone 1
 	 {
-   	    gun2X = 0.8271 * luckyx;
+   	    gun2Xs = 0.8271 * luckyx;
 	 }
-         if ((luckyx < -63000) && (luckyx >= -65000)) //Zone 2
+         else if ((luckyx < -63000) && (luckyx >= -65000)) //Zone 2
 	 {
-   	    gun2X = (0.8271 * luckyx) - 1000;
+   	    gun2Xs = (0.8271 * luckyx) - 1000;
 	 }
-         if ((luckyx < -58000) && (luckyx >= -63000)) //Zone 3
+         else if ((luckyx < -58000) && (luckyx >= -63000)) //Zone 3
 	 {
-   	    gun2X = (0.8271 * luckyx) - 3000;
+   	    gun2Xs = (0.8271 * luckyx) - 3000;
 	 }
-         if ((luckyx < -55000) && (luckyx >= -58000)) //Zone 4
+         else if ((luckyx < -55000) && (luckyx >= -58000)) //Zone 4
 	 {
-   	    gun2X = (0.8271 * luckyx) - 2000;
+   	    gun2Xs = (0.8271 * luckyx) - 2000;
 	 }
-         if ((luckyx < 0) && (luckyx >= -55000)) //Zone 5
+         else if ((luckyx < 0) && (luckyx >= -55000)) //Zone 5
 	 {
-   	    gun2X = (0.8271 * luckyx) - 4000;
+   	    gun2Xs = (0.8271 * luckyx) - 4000;
 	 }
-         if ((luckyx >= 0) && (luckyx <= 45000)) //Zone 6
+         else if ((luckyx >= 0) && (luckyx <= 45000)) //Zone 6
 	 {
-   	    gun2X = (1.2756 * luckyx) - 4000;
+   	    gun2Xs = (1.2756 * luckyx) - 4000;
 	 }
-         if ((luckyx > 45000) && (luckyx <= 48000)) //Zone 7
+         else if ((luckyx > 45000) && (luckyx <= 48000)) //Zone 7
 	 {
-   	    gun2X = (1.2756 * luckyx) + 1000;
+   	    gun2Xs = (1.2756 * luckyx) + 1000;
 	 }
-         if ((luckyx > 48000) && (luckyx <= 50000)) //Zone 8
+         else if ((luckyx > 48000) && (luckyx <= 50000)) //Zone 8
 	 {
-   	    gun2X = (1.2756 * luckyx) + 2000;
+   	    gun2Xs = (1.2756 * luckyx) + 2000;
 	 }
-         if (luckyx > 50000) //Zone 9
+         else //(luckyx > 50000) Zone 9
 	 {
-   	    gun2X = 1.2756 * luckyx;
+   	    gun2Xs = 1.2756 * luckyx;
 	 }
+      }
+      else
+      {
+         gun1Xs = 2 * gun1Xr;
+         gun1Ys = 2 * gun1Yr;
+         gun2Xs = 2 * gun2Xr;
+         gun2Ys = 2 * gun2Yr;
+         gun3Xs = 2 * gun3Xr;
+         gun3Ys = 2 * gun3Yr;
+         gun4Xs = 2 * gun4Xr;
+         gun4Ys = 2 * gun4Yr;
+         gun5Xs = 2 * gun5Xr;
+         gun5Ys = 2 * gun5Yr;
+         gun6Xs = 2 * gun6Xr;
+         gun6Ys = 2 * gun6Yr;
+         gun7Xs = 2 * gun7Xr;
+         gun7Ys = 2 * gun7Yr;
+         gun8Xs = 2 * gun8Xr;
+         gun8Ys = 2 * gun8Yr;
+      }
+
+      if (input_state_cb(0, RETRO_DEVICE_LIGHTGUN, 0, RETRO_DEVICE_ID_LIGHTGUN_IS_OFFSCREEN) && !input_state_cb(0, RETRO_DEVICE_LIGHTGUN, 0, RETRO_DEVICE_ID_LIGHTGUN_RELOAD))
+      {
+         if (lightgun_reload_mode == 1)
+	 {
+            gun1X = -65534;
+	    gun1Y = -65534;
+	 }
+         else if (lightgun_reload_mode == 2)
+	 {
+            gun1X = 65534;
+	    gun1Y = 65534;
+	 }
+	 else
+	 {
+            gun1X = gun1Xs;
+	    gun1Y = gun1Ys;
+	 }
+      }
+      else if (input_state_cb(0, RETRO_DEVICE_LIGHTGUN, 0, RETRO_DEVICE_ID_LIGHTGUN_IS_OFFSCREEN) && input_state_cb(0, RETRO_DEVICE_LIGHTGUN, 0, RETRO_DEVICE_ID_LIGHTGUN_RELOAD))
+      {
+         if (lightgun_reload_mode == 2)
+	 {
+            gun1X = 65534;
+	    gun1Y = 65534;
+	 }
+         else
+	 {
+            gun1X = -65534;
+	    gun1Y = -65534;
+	 }
+      }
+      else if (!input_state_cb(0, RETRO_DEVICE_LIGHTGUN, 0, RETRO_DEVICE_ID_LIGHTGUN_IS_OFFSCREEN) && input_state_cb(0, RETRO_DEVICE_LIGHTGUN, 0, RETRO_DEVICE_ID_LIGHTGUN_RELOAD))
+      {
+         if (lightgun_reload_mode == 2)
+	 {
+            gun1X = 65534;
+	    gun1Y = 65534;
+	 }
+         else
+	 {
+            gun1X = -65534;
+	    gun1Y = -65534;
+	 }
+      }
+      else
+      {
+         gun1X = gun1Xs;
+	 gun1Y = gun1Ys;
+      }
+
+      if (input_state_cb(1, RETRO_DEVICE_LIGHTGUN, 0, RETRO_DEVICE_ID_LIGHTGUN_IS_OFFSCREEN) && !input_state_cb(1, RETRO_DEVICE_LIGHTGUN, 0, RETRO_DEVICE_ID_LIGHTGUN_RELOAD))
+      {
+         if (lightgun_reload_mode == 1)
+	 {
+            gun2X = -65534;
+	    gun2Y = -65534;
+	 }
+         else if (lightgun_reload_mode == 2)
+	 {
+            gun2X = 65534;
+	    gun2Y = 65534;
+	 }
+	 else
+	 {
+            gun2X = gun2Xs;
+	    gun2Y = gun2Ys;
+	 }
+      }
+      else if (input_state_cb(1, RETRO_DEVICE_LIGHTGUN, 0, RETRO_DEVICE_ID_LIGHTGUN_IS_OFFSCREEN) && input_state_cb(1, RETRO_DEVICE_LIGHTGUN, 0, RETRO_DEVICE_ID_LIGHTGUN_RELOAD))
+      {
+         if (lightgun_reload_mode == 2)
+	 {
+            gun2X = 65534;
+	    gun2Y = 65534;
+	 }
+         else
+	 {
+            gun2X = -65534;
+	    gun2Y = -65534;
+	 }
+      }
+      else if (!input_state_cb(1, RETRO_DEVICE_LIGHTGUN, 0, RETRO_DEVICE_ID_LIGHTGUN_IS_OFFSCREEN) && input_state_cb(1, RETRO_DEVICE_LIGHTGUN, 0, RETRO_DEVICE_ID_LIGHTGUN_RELOAD))
+      {
+         if (lightgun_reload_mode == 2)
+	 {
+            gun2X = 65534;
+	    gun2Y = 65534;
+	 }
+         else
+	 {
+            gun2X = -65534;
+	    gun2Y = -65534;
+	 }
+      }
+      else
+      {
+         gun2X = gun2Xs;
+	 gun2Y = gun2Ys;
+      }
+
+      if (input_state_cb(2, RETRO_DEVICE_LIGHTGUN, 0, RETRO_DEVICE_ID_LIGHTGUN_IS_OFFSCREEN) && !input_state_cb(2, RETRO_DEVICE_LIGHTGUN, 0, RETRO_DEVICE_ID_LIGHTGUN_RELOAD))
+      {
+         if (lightgun_reload_mode == 1)
+	 {
+            gun3X = -65534;
+	    gun3Y = -65534;
+	 }
+         else if (lightgun_reload_mode == 2)
+	 {
+            gun3X = 65534;
+	    gun3Y = 65534;
+	 }
+	 else
+	 {
+            gun3X = gun3Xs;
+	    gun3Y = gun3Ys;
+	 }
+      }
+      else if (input_state_cb(2, RETRO_DEVICE_LIGHTGUN, 0, RETRO_DEVICE_ID_LIGHTGUN_IS_OFFSCREEN) && input_state_cb(2, RETRO_DEVICE_LIGHTGUN, 0, RETRO_DEVICE_ID_LIGHTGUN_RELOAD))
+      {
+         if (lightgun_reload_mode == 2)
+	 {
+            gun3X = 65534;
+	    gun3Y = 65534;
+	 }
+         else
+	 {
+            gun3X = -65534;
+	    gun3Y = -65534;
+	 }
+      }
+      else if (!input_state_cb(2, RETRO_DEVICE_LIGHTGUN, 0, RETRO_DEVICE_ID_LIGHTGUN_IS_OFFSCREEN) && input_state_cb(2, RETRO_DEVICE_LIGHTGUN, 0, RETRO_DEVICE_ID_LIGHTGUN_RELOAD))
+      {
+         if (lightgun_reload_mode == 2)
+	 {
+            gun3X = 65534;
+	    gun3Y = 65534;
+	 }
+         else
+	 {
+            gun3X = -65534;
+	    gun3Y = -65534;
+	 }
+      }
+      else
+      {
+         gun3X = gun3Xs;
+	 gun3Y = gun3Ys;
+      }
+
+      if (input_state_cb(3, RETRO_DEVICE_LIGHTGUN, 0, RETRO_DEVICE_ID_LIGHTGUN_IS_OFFSCREEN) && !input_state_cb(3, RETRO_DEVICE_LIGHTGUN, 0, RETRO_DEVICE_ID_LIGHTGUN_RELOAD))
+      {
+         if (lightgun_reload_mode == 1)
+	 {
+            gun4X = -65534;
+	    gun4Y = -65534;
+	 }
+         else if (lightgun_reload_mode == 2)
+	 {
+            gun4X = 65534;
+	    gun4Y = 65534;
+	 }
+	 else
+	 {
+            gun4X = gun4Xs;
+	    gun4Y = gun4Ys;
+	 }
+      }
+      else if (input_state_cb(3, RETRO_DEVICE_LIGHTGUN, 0, RETRO_DEVICE_ID_LIGHTGUN_IS_OFFSCREEN) && input_state_cb(3, RETRO_DEVICE_LIGHTGUN, 0, RETRO_DEVICE_ID_LIGHTGUN_RELOAD))
+      {
+         if (lightgun_reload_mode == 2)
+	 {
+            gun4X = 65534;
+	    gun4Y = 65534;
+	 }
+         else
+	 {
+            gun4X = -65534;
+	    gun4Y = -65534;
+	 }
+      }
+      else if (!input_state_cb(3, RETRO_DEVICE_LIGHTGUN, 0, RETRO_DEVICE_ID_LIGHTGUN_IS_OFFSCREEN) && input_state_cb(3, RETRO_DEVICE_LIGHTGUN, 0, RETRO_DEVICE_ID_LIGHTGUN_RELOAD))
+      {
+         if (lightgun_reload_mode == 2)
+	 {
+            gun4X = 65534;
+	    gun4Y = 65534;
+	 }
+         else
+	 {
+            gun4X = -65534;
+	    gun4Y = -65534;
+	 }
+      }
+      else
+      {
+         gun4X = gun4Xs;
+	 gun4Y = gun4Ys;
+      }
+
+      if (input_state_cb(4, RETRO_DEVICE_LIGHTGUN, 0, RETRO_DEVICE_ID_LIGHTGUN_IS_OFFSCREEN) && !input_state_cb(4, RETRO_DEVICE_LIGHTGUN, 0, RETRO_DEVICE_ID_LIGHTGUN_RELOAD))
+      {
+         if (lightgun_reload_mode == 1)
+	 {
+            gun5X = -65534;
+	    gun5Y = -65534;
+	 }
+         else if (lightgun_reload_mode == 2)
+	 {
+            gun5X = 65534;
+	    gun5Y = 65534;
+	 }
+	 else
+	 {
+            gun5X = gun5Xs;
+	    gun5Y = gun5Ys;
+	 }
+      }
+      else if (input_state_cb(4, RETRO_DEVICE_LIGHTGUN, 0, RETRO_DEVICE_ID_LIGHTGUN_IS_OFFSCREEN) && input_state_cb(4, RETRO_DEVICE_LIGHTGUN, 0, RETRO_DEVICE_ID_LIGHTGUN_RELOAD))
+      {
+         if (lightgun_reload_mode == 2)
+	 {
+            gun5X = 65534;
+	    gun5Y = 65534;
+	 }
+         else
+	 {
+            gun5X = -65534;
+	    gun5Y = -65534;
+	 }
+      }
+      else if (!input_state_cb(4, RETRO_DEVICE_LIGHTGUN, 0, RETRO_DEVICE_ID_LIGHTGUN_IS_OFFSCREEN) && input_state_cb(4, RETRO_DEVICE_LIGHTGUN, 0, RETRO_DEVICE_ID_LIGHTGUN_RELOAD))
+      {
+         if (lightgun_reload_mode == 2)
+	 {
+            gun5X = 65534;
+	    gun5Y = 65534;
+	 }
+         else
+	 {
+            gun5X = -65534;
+	    gun5Y = -65534;
+	 }
+      }
+      else
+      {
+         gun5X = gun5Xs;
+	 gun5Y = gun5Ys;
+      }
+
+      if (input_state_cb(5, RETRO_DEVICE_LIGHTGUN, 0, RETRO_DEVICE_ID_LIGHTGUN_IS_OFFSCREEN) && !input_state_cb(5, RETRO_DEVICE_LIGHTGUN, 0, RETRO_DEVICE_ID_LIGHTGUN_RELOAD))
+      {
+         if (lightgun_reload_mode == 1)
+	 {
+            gun6X = -65534;
+	    gun6Y = -65534;
+	 }
+         else if (lightgun_reload_mode == 2)
+	 {
+            gun6X = 65534;
+	    gun6Y = 65534;
+	 }
+	 else
+	 {
+            gun6X = gun6Xs;
+	    gun6Y = gun6Ys;
+	 }
+      }
+      else if (input_state_cb(5, RETRO_DEVICE_LIGHTGUN, 0, RETRO_DEVICE_ID_LIGHTGUN_IS_OFFSCREEN) && input_state_cb(5, RETRO_DEVICE_LIGHTGUN, 0, RETRO_DEVICE_ID_LIGHTGUN_RELOAD))
+      {
+         if (lightgun_reload_mode == 2)
+	 {
+            gun6X = 65534;
+	    gun6Y = 65534;
+	 }
+         else
+	 {
+            gun6X = -65534;
+	    gun6Y = -65534;
+	 }
+      }
+      else if (!input_state_cb(5, RETRO_DEVICE_LIGHTGUN, 0, RETRO_DEVICE_ID_LIGHTGUN_IS_OFFSCREEN) && input_state_cb(5, RETRO_DEVICE_LIGHTGUN, 0, RETRO_DEVICE_ID_LIGHTGUN_RELOAD))
+      {
+         if (lightgun_reload_mode == 2)
+	 {
+            gun6X = 65534;
+	    gun6Y = 65534;
+	 }
+         else
+	 {
+            gun6X = -65534;
+	    gun6Y = -65534;
+	 }
+      }
+      else
+      {
+         gun6X = gun6Xs;
+	 gun6Y = gun6Ys;
+      }
+
+      if (input_state_cb(6, RETRO_DEVICE_LIGHTGUN, 0, RETRO_DEVICE_ID_LIGHTGUN_IS_OFFSCREEN) && !input_state_cb(6, RETRO_DEVICE_LIGHTGUN, 0, RETRO_DEVICE_ID_LIGHTGUN_RELOAD))
+      {
+         if (lightgun_reload_mode == 1)
+	 {
+            gun7X = -65534;
+	    gun7Y = -65534;
+	 }
+         else if (lightgun_reload_mode == 2)
+	 {
+            gun7X = 65534;
+	    gun7Y = 65534;
+	 }
+	 else
+	 {
+            gun7X = gun7Xs;
+	    gun7Y = gun7Ys;
+	 }
+      }
+      else if (input_state_cb(6, RETRO_DEVICE_LIGHTGUN, 0, RETRO_DEVICE_ID_LIGHTGUN_IS_OFFSCREEN) && input_state_cb(6, RETRO_DEVICE_LIGHTGUN, 0, RETRO_DEVICE_ID_LIGHTGUN_RELOAD))
+      {
+         if (lightgun_reload_mode == 2)
+	 {
+            gun7X = 65534;
+	    gun7Y = 65534;
+	 }
+         else
+	 {
+            gun7X = -65534;
+	    gun7Y = -65534;
+	 }
+      }
+      else if (!input_state_cb(6, RETRO_DEVICE_LIGHTGUN, 0, RETRO_DEVICE_ID_LIGHTGUN_IS_OFFSCREEN) && input_state_cb(6, RETRO_DEVICE_LIGHTGUN, 0, RETRO_DEVICE_ID_LIGHTGUN_RELOAD))
+      {
+         if (lightgun_reload_mode == 2)
+	 {
+            gun7X = 65534;
+	    gun7Y = 65534;
+	 }
+         else
+	 {
+            gun7X = -65534;
+	    gun7Y = -65534;
+	 }
+      }
+      else
+      {
+         gun7X = gun7Xs;
+	 gun7Y = gun7Ys;
+      }
+
+      if (input_state_cb(7, RETRO_DEVICE_LIGHTGUN, 0, RETRO_DEVICE_ID_LIGHTGUN_IS_OFFSCREEN) && !input_state_cb(7, RETRO_DEVICE_LIGHTGUN, 0, RETRO_DEVICE_ID_LIGHTGUN_RELOAD))
+      {
+         if (lightgun_reload_mode == 1)
+	 {
+            gun8X = -65534;
+	    gun8Y = -65534;
+	 }
+         else if (lightgun_reload_mode == 2)
+	 {
+            gun8X = 65534;
+	    gun8Y = 65534;
+	 }
+	 else
+	 {
+            gun8X = gun8Xs;
+	    gun8Y = gun8Ys;
+	 }
+      }
+      else if (input_state_cb(7, RETRO_DEVICE_LIGHTGUN, 0, RETRO_DEVICE_ID_LIGHTGUN_IS_OFFSCREEN) && input_state_cb(7, RETRO_DEVICE_LIGHTGUN, 0, RETRO_DEVICE_ID_LIGHTGUN_RELOAD))
+      {
+         if (lightgun_reload_mode == 2)
+	 {
+            gun8X = 65534;
+	    gun8Y = 65534;
+	 }
+         else
+	 {
+            gun8X = -65534;
+	    gun8Y = -65534;
+	 }
+      }
+      else if (!input_state_cb(7, RETRO_DEVICE_LIGHTGUN, 0, RETRO_DEVICE_ID_LIGHTGUN_IS_OFFSCREEN) && input_state_cb(7, RETRO_DEVICE_LIGHTGUN, 0, RETRO_DEVICE_ID_LIGHTGUN_RELOAD))
+      {
+         if (lightgun_reload_mode == 2)
+	 {
+            gun8X = 65534;
+	    gun8Y = 65534;
+	 }
+         else
+	 {
+            gun8X = -65534;
+	    gun8Y = -65534;
+	 }
+      }
+      else
+      {
+         gun8X = gun8Xs;
+	 gun8Y = gun8Ys;
       }
    }
 	
@@ -1799,233 +2290,6 @@ void retro_poll_mame_input()
    P8_state[KEY_JOYSTICK_D] = input_state_cb(7, RETRO_DEVICE_JOYPAD, 0, RETRO_DEVICE_ID_JOYPAD_DOWN) || input_state_cb(7, RETRO_DEVICE_LIGHTGUN, 0, RETRO_DEVICE_ID_LIGHTGUN_DPAD_DOWN);
    P8_state[KEY_JOYSTICK_L] = input_state_cb(7, RETRO_DEVICE_JOYPAD, 0, RETRO_DEVICE_ID_JOYPAD_LEFT) || input_state_cb(7, RETRO_DEVICE_LIGHTGUN, 0, RETRO_DEVICE_ID_LIGHTGUN_DPAD_LEFT);
    P8_state[KEY_JOYSTICK_R] = input_state_cb(7, RETRO_DEVICE_JOYPAD, 0, RETRO_DEVICE_ID_JOYPAD_RIGHT) || input_state_cb(7, RETRO_DEVICE_LIGHTGUN, 0, RETRO_DEVICE_ID_LIGHTGUN_DPAD_RIGHT);
-  
-      //Cursor glued to corresponding corner in LIGHTGUN mode when detected as offscreen if "Lightgun offscreen position" set to fixed
-      //Optional Libretro "Gun Reload" input gives the same behavior in button form (again, for LIGHTGUN inputs only) and defaults to top left in "free" mode
-      //Mouse mode and Joystick input do not respond well to forced reload button, so that function is not available in those modes
-      if (mouse_mode == 2 && input_state_cb(0, RETRO_DEVICE_LIGHTGUN, 0, RETRO_DEVICE_ID_LIGHTGUN_IS_OFFSCREEN))
-        {
-	      if (lightgun_reload_mode == 1)
-	      {
-	         gun1X = -65534;
-	         gun1Y = -65534;
-	      }
-	      if (lightgun_reload_mode == 2)
-	      {
-	         gun1X = 65534;
-	         gun1Y = 65534;
-	      }
-        }
-	
-      if (mouse_mode == 2 && input_state_cb(0, RETRO_DEVICE_LIGHTGUN, 0, RETRO_DEVICE_ID_LIGHTGUN_RELOAD))
-        {
-	      if (lightgun_reload_mode == 2)
-	      {
-	         gun1X = 65534;
-	         gun1Y = 65534;
-	      }
-	      else
-	      {
-	         gun1X = -65534;
-	         gun1Y = -65534;
-	      }
-        }
-
-      if (mouse_mode == 2 && input_state_cb(1, RETRO_DEVICE_LIGHTGUN, 0, RETRO_DEVICE_ID_LIGHTGUN_IS_OFFSCREEN))
-        {
-	      if (lightgun_reload_mode == 1)
-	      {
-	         gun2X = -65534;
-	         gun2Y = -65534;
-	      }
-	      if (lightgun_reload_mode == 2)
-	      {
-	         gun2X = 65534;
-	         gun2Y = 65534;
-	      }
-        }
-	
-      if (mouse_mode == 2 && input_state_cb(1, RETRO_DEVICE_LIGHTGUN, 0, RETRO_DEVICE_ID_LIGHTGUN_RELOAD))
-        {
-	      if (lightgun_reload_mode == 2)
-	      {
-	         gun2X = 65534;
-	         gun2Y = 65534;
-	      }
-	      else
-	      {
-	         gun2X = -65534;
-	         gun2Y = -65534;
-	      }
-        }
-
-      if (mouse_mode == 2 && input_state_cb(2, RETRO_DEVICE_LIGHTGUN, 0, RETRO_DEVICE_ID_LIGHTGUN_IS_OFFSCREEN))
-        {
-	      if (lightgun_reload_mode == 1)
-	      {
-	         gun3X = -65534;
-	         gun3Y = -65534;
-	      }
-	      if (lightgun_reload_mode == 2)
-	      {
-	         gun3X = 65534;
-	         gun3Y = 65534;
-	      }
-        }
-	
-      if (mouse_mode == 2 && input_state_cb(2, RETRO_DEVICE_LIGHTGUN, 0, RETRO_DEVICE_ID_LIGHTGUN_RELOAD))
-        {
-	      if (lightgun_reload_mode == 2)
-	      {
-	         gun3X = 65534;
-	         gun3Y = 65534;
-	      }
-	      else
-	      {
-	         gun3X = -65534;
-	         gun3Y = -65534;
-	      }
-        }
-
-      if (mouse_mode == 2 && input_state_cb(3, RETRO_DEVICE_LIGHTGUN, 0, RETRO_DEVICE_ID_LIGHTGUN_IS_OFFSCREEN))
-        {
-	      if (lightgun_reload_mode == 1)
-	      {
-	         gun4X = -65534;
-	         gun4Y = -65534;
-	      }
-	      if (lightgun_reload_mode == 2)
-	      {
-	         gun4X = 65534;
-	         gun4Y = 65534;
-	      }
-        }
-	
-      if (mouse_mode == 2 && input_state_cb(3, RETRO_DEVICE_LIGHTGUN, 0, RETRO_DEVICE_ID_LIGHTGUN_RELOAD))
-        {
-	      if (lightgun_reload_mode == 2)
-	      {
-	         gun4X = 65534;
-	         gun4Y = 65534;
-	      }
-	      else
-	      {
-	         gun4X = -65534;
-	         gun4Y = -65534;
-	      }
-        }
-
-      if (mouse_mode == 2 && input_state_cb(4, RETRO_DEVICE_LIGHTGUN, 0, RETRO_DEVICE_ID_LIGHTGUN_IS_OFFSCREEN))
-        {
-	      if (lightgun_reload_mode == 1)
-	      {
-	         gun5X = -65534;
-	         gun5Y = -65534;
-	      }
-	      if (lightgun_reload_mode == 2)
-	      {
-	         gun5X = 65534;
-	         gun5Y = 65534;
-	      }
-        }
-	
-      if (mouse_mode == 2 && input_state_cb(4, RETRO_DEVICE_LIGHTGUN, 0, RETRO_DEVICE_ID_LIGHTGUN_RELOAD))
-        {
-	      if (lightgun_reload_mode == 2)
-	      {
-	         gun5X = 65534;
-	         gun5Y = 65534;
-	      }
-	      else
-	      {
-	         gun5X = -65534;
-	         gun5Y = -65534;
-	      }
-        }
-
-      if (mouse_mode == 2 && input_state_cb(5, RETRO_DEVICE_LIGHTGUN, 0, RETRO_DEVICE_ID_LIGHTGUN_IS_OFFSCREEN))
-        {
-	      if (lightgun_reload_mode == 1)
-	      {
-	         gun6X = -65534;
-	         gun6Y = -65534;
-	      }
-	      if (lightgun_reload_mode == 2)
-	      {
-	         gun6X = 65534;
-	         gun6Y = 65534;
-	      }
-        }
-	
-      if (mouse_mode == 2 && input_state_cb(5, RETRO_DEVICE_LIGHTGUN, 0, RETRO_DEVICE_ID_LIGHTGUN_RELOAD))
-        {
-	      if (lightgun_reload_mode == 2)
-	      {
-	         gun6X = 65534;
-	         gun6Y = 65534;
-	      }
-	      else
-	      {
-	         gun6X = -65534;
-	         gun6Y = -65534;
-	      }
-        }
-
-      if (mouse_mode == 2 && input_state_cb(6, RETRO_DEVICE_LIGHTGUN, 0, RETRO_DEVICE_ID_LIGHTGUN_IS_OFFSCREEN))
-        {
-	      if (lightgun_reload_mode == 1)
-	      {
-	         gun7X = -65534;
-	         gun7Y = -65534;
-	      }
-	      if (lightgun_reload_mode == 2)
-	      {
-	         gun7X = 65534;
-	         gun7Y = 65534;
-	      }
-        }
-	
-      if (mouse_mode == 2 && input_state_cb(6, RETRO_DEVICE_LIGHTGUN, 0, RETRO_DEVICE_ID_LIGHTGUN_RELOAD))
-        {
-	      if (lightgun_reload_mode == 2)
-	      {
-	         gun7X = 65534;
-	         gun7Y = 65534;
-	      }
-	      else
-	      {
-	         gun7X = -65534;
-	         gun7Y = -65534;
-	      }
-        }
-
-      if (mouse_mode == 2 && input_state_cb(7, RETRO_DEVICE_LIGHTGUN, 0, RETRO_DEVICE_ID_LIGHTGUN_IS_OFFSCREEN))
-        {
-	      if (lightgun_reload_mode == 1)
-	      {
-	         gun8X = -65534;
-	         gun8Y = -65534;
-	      }
-	      if (lightgun_reload_mode == 2)
-	      {
-	         gun8X = 65534;
-	         gun8Y = 65534;
-	      }
-        }
-	
-      if (mouse_mode == 2 && input_state_cb(7, RETRO_DEVICE_LIGHTGUN, 0, RETRO_DEVICE_ID_LIGHTGUN_RELOAD))
-        {
-	      if (lightgun_reload_mode == 2)
-	      {
-	         gun8X = 65534;
-	         gun8Y = 65534;
-	      }
-	      else
-	      {
-	         gun8X = -65534;
-	         gun8Y = -65534;
-	      }
-        }
 
 //Shell for CPU overclock setting. Search mame_current_overclock for other pieces
 // if (oc) 
