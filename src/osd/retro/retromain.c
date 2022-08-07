@@ -1187,6 +1187,8 @@ static void initInput(running_machine* machine)
 	  lightgun_hack = 5;
    else if (LUCKYWLD_LAYOUT)
 	  lightgun_hack = 6;
+   else if (GDFS_LAYOUT)
+	  lightgun_hack = 7;
    else
 	  lightgun_hack = 0;
 	
@@ -1700,6 +1702,25 @@ void retro_poll_mame_input()
 	 {
    	    gun2Xs = 1.2756 * luckyx;
 	 }
+      }
+      else if (lightgun_hack == 7) //gdfs
+      {
+         gun1Xs = 1.3429 * gun1Xr - 11366;
+	 gun1Ys = 2 * gun1Yr + 21845;
+         gun2Xs = 1.3429 * gun2Xr - 11366;
+	 gun2Ys = 2 * gun2Yr + 21845;
+         gun3Xs = 1.3429 * gun3Xr - 11366;
+	 gun3Ys = 2 * gun3Yr + 21845;
+         gun4Xs = 1.3429 * gun4Xr - 11366;
+	 gun4Ys = 2 * gun4Yr + 21845;
+         gun5Xs = 1.3429 * gun5Xr - 11366;
+	 gun5Ys = 2 * gun5Yr + 21845;
+         gun6Xs = 1.3429 * gun6Xr - 11366;
+	 gun6Ys = 2 * gun6Yr + 21845;
+         gun7Xs = 1.3429 * gun7Xr - 11366;
+	 gun7Ys = 2 * gun7Yr + 21845;
+         gun8Xs = 1.3429 * gun8Xr - 11366;
+	 gun8Ys = 2 * gun8Yr + 21845;
       }
       else
       {

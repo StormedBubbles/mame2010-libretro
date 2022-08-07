@@ -274,6 +274,9 @@ const kt_table ktable[] = {
 /* Born to Fight */
 #define BORNTOFI_LAYOUT	(core_stricmp(machine->gamedrv->name, "borntofi") == 0) || (core_stricmp(machine->gamedrv->parent, "borntofi") == 0)
 
+/* Mobil Suit Gundam: Final Shooting */
+#define GDFS_LAYOUT	(core_stricmp(machine->gamedrv->name, "gdfs") == 0) || (core_stricmp(machine->gamedrv->parent, "gdfs") == 0)
+
 /* Great Guns */
 #define GREATGUN_LAYOUT	(core_stricmp(machine->gamedrv->name, "greatgun") == 0) || (core_stricmp(machine->gamedrv->parent, "greatgun") == 0)
 
