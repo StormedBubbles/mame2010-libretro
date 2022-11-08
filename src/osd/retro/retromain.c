@@ -1191,6 +1191,8 @@ static void initInput(running_machine* machine)
 	  lightgun_hack = 7;
    else if (FIREFOX_LAYOUT)
 	  lightgun_hack = 8;
+   else if (LOCKON_LAYOUT)
+	  lightgun_hack = 9;
    else
 	  lightgun_hack = 0;
 	
@@ -1742,6 +1744,25 @@ void retro_poll_mame_input()
 	 gun7Ys = 2.6 * gun7Yr + 13107;
          gun8Xs = 1.96 * gun8Xr + 4574;
 	 gun8Ys = 2.6 * gun8Yr + 13107;
+      }
+      else if (lightgun_hack == 9) //lockon
+      {
+         gun1Xs = 4 * gun1Xr;
+	 gun1Ys = 2.8 * gun1Yr;
+         gun2Xs = 4 * gun2Xr;
+	 gun2Ys = 2.8 * gun2Yr;
+         gun3Xs = 4 * gun3Xr;
+	 gun3Ys = 2.8 * gun3Yr;
+         gun4Xs = 4 * gun4Xr;
+	 gun4Ys = 2.8 * gun4Yr;
+         gun5Xs = 4 * gun5Xr;
+	 gun5Ys = 2.8 * gun5Yr;
+         gun6Xs = 4 * gun6Xr;
+	 gun6Ys = 2.8 * gun6Yr;
+         gun7Xs = 4 * gun7Xr;
+	 gun7Ys = 2.8 * gun7Yr;
+         gun8Xs = 4 * gun8Xr;
+	 gun8Ys = 2.8 * gun8Yr;
       }
       else
       {
