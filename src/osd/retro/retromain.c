@@ -1747,22 +1747,22 @@ void retro_poll_mame_input()
       }
       else if (lightgun_hack == 9) //lockon
       {
-         gun1Xs = 4 * gun1Xr;
-	 gun1Ys = 2.8 * gun1Yr;
-         gun2Xs = 4 * gun2Xr;
-	 gun2Ys = 2.8 * gun2Yr;
-         gun3Xs = 4 * gun3Xr;
-	 gun3Ys = 2.8 * gun3Yr;
-         gun4Xs = 4 * gun4Xr;
-	 gun4Ys = 2.8 * gun4Yr;
-         gun5Xs = 4 * gun5Xr;
-	 gun5Ys = 2.8 * gun5Yr;
-         gun6Xs = 4 * gun6Xr;
-	 gun6Ys = 2.8 * gun6Yr;
-         gun7Xs = 4 * gun7Xr;
-	 gun7Ys = 2.8 * gun7Yr;
-         gun8Xs = 4 * gun8Xr;
-	 gun8Ys = 2.8 * gun8Yr;
+         gun1Xs = 2.88 * gun1Xr;
+	 gun1Ys = 2.1 * gun1Yr;
+         gun2Xs = 2.88 * gun2Xr;
+	 gun2Ys = 2.1 * gun2Yr;
+         gun3Xs = 2.88 * gun3Xr;
+	 gun3Ys = 2.1 * gun3Yr;
+         gun4Xs = 2.88 * gun4Xr;
+	 gun4Ys = 2.1 * gun4Yr;
+         gun5Xs = 2.88 * gun5Xr;
+	 gun5Ys = 2.1 * gun5Yr;
+         gun6Xs = 2.88 * gun6Xr;
+	 gun6Ys = 2.1 * gun6Yr;
+         gun7Xs = 2.88 * gun7Xr;
+	 gun7Ys = 2.1 * gun7Yr;
+         gun8Xs = 2.88 * gun8Xr;
+	 gun8Ys = 2.1 * gun8Yr;
       }
       else
       {
