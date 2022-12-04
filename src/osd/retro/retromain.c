@@ -1191,6 +1191,8 @@ static void initInput(running_machine* machine)
 	  lightgun_hack = 7;
    else if (FIREFOX_LAYOUT)
 	  lightgun_hack = 8;
+   else if (JPARK_LAYOUT)
+	  lightgun_hack = 9;
    else
 	  lightgun_hack = 0;
 	
@@ -1547,6 +1549,8 @@ void retro_poll_mame_input()
    int gun8Xr = input_state_cb(7, RETRO_DEVICE_LIGHTGUN, 0, RETRO_DEVICE_ID_LIGHTGUN_SCREEN_X);
    int gun8Yr = input_state_cb(7, RETRO_DEVICE_LIGHTGUN, 0, RETRO_DEVICE_ID_LIGHTGUN_SCREEN_Y);
    int luckyx = 2 * gun2Xr - 13351;
+   int jpark1x = 2 * gun1Xr + 5243;
+   int jpark2x = 2 * gun2Xr - 5243;
    int gun1Xs, gun2Xs, gun3Xs, gun4Xs, gun5Xs, gun6Xs, gun7Xs, gun8Xs;
    int gun1Ys, gun2Ys, gun3Ys, gun4Ys, gun5Ys, gun6Ys, gun7Ys, gun8Ys;
 
@@ -1742,6 +1746,43 @@ void retro_poll_mame_input()
 	 gun7Ys = 2.6 * gun7Yr + 13107;
          gun8Xs = 1.96 * gun8Xr + 4574;
 	 gun8Ys = 2.6 * gun8Yr + 13107;
+      }
+      else if (lightgun_hack == 9) //jpark
+      {
+         if (jpark1x < 0)
+	 {
+	    gun1Xs = 2 * gun1Xr * 1.25;
+	    gun1Ys = 2 * gun1Yr * 0.5 + 1966;
+	 }
+	 else
+	 {
+	    gun1Xs = 2 * gun1Xr * 0.8;
+	    gun1Ys = 2 * gun1Yr * 0.5 + 1966;
+	 }
+
+         if (jpark2x < 0)
+	 {
+	    gun1Xs = 2 * gun1Xr * 0.8;
+	    gun1Ys = 2 * gun1Yr * 0.5 + 1966;
+	 }
+	 else
+	 {
+	    gun1Xs = 2 * gun1Xr * 1.25;
+	    gun1Ys = 2 * gun1Yr * 0.5 + 1966;
+	 }
+
+         gun3Xs = 2 * gun3Xr;
+         gun3Ys = 2 * gun3Yr;
+         gun4Xs = 2 * gun4Xr;
+         gun4Ys = 2 * gun4Yr;
+         gun5Xs = 2 * gun5Xr;
+         gun5Ys = 2 * gun5Yr;
+         gun6Xs = 2 * gun6Xr;
+         gun6Ys = 2 * gun6Yr;
+         gun7Xs = 2 * gun7Xr;
+         gun7Ys = 2 * gun7Yr;
+         gun8Xs = 2 * gun8Xr;
+         gun8Ys = 2 * gun8Yr;
       }
       else
       {
