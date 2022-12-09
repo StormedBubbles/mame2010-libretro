@@ -1751,23 +1751,23 @@ void retro_poll_mame_input()
       {
          if (jpark1x < 0)
 	 {
-	    gun1Xs = (2 * gun1Xr + 26000) * 0.8 - 2600;
+	    gun1Xs = (2 * gun1Xr + 26000);
 	    gun1Ys = (2 * gun1Yr) * 0.5 + 1733;
 	 }
 	 else
 	 {
-	    gun1Xs = (2 * gun1Xr + 26000) * 0.3 - 9630;
+	    gun1Xs = (2 * gun1Xr + 26000);
 	    gun1Ys = (2 * gun1Yr) * 0.5 + 1733;
 	 }
 
          if (jpark2x < 0)
 	 {
-	    gun2Xs = (2 * gun2Xr - 26000) * 0.3 + 9630;
+	    gun2Xs = (2 * gun2Xr - 26000);
 	    gun2Ys = (2 * gun2Yr) * 0.5 + 1733;
 	 }
 	 else
 	 {
-	    gun2Xs = (2 * gun2Xr - 26000) * 0.8 + 2600;
+	    gun2Xs = (2 * gun2Xr - 26000);
 	    gun2Ys = (2 * gun2Yr) * 0.5 + 1733;
 	 }
 
