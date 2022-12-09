@@ -1756,13 +1756,13 @@ void retro_poll_mame_input()
 	 }
 	 else
 	 {
-	    gun1Xs = 0;
-	    gun1Ys = 2 * gun1Yr * 0.5 + 1966;
+	    gun1Xs = 2 * gun1Xr;
+	    gun1Ys = 2 * gun1Yr;
 	 }
 
          if (jpark2x < 0)
 	 {
-	    gun2Xs = 0;
+	    gun2Xs = 2 * gun2Xr;
 	    gun2Ys = 2 * gun2Yr;
 	 }
 	 else
