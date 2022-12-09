@@ -1756,7 +1756,7 @@ void retro_poll_mame_input()
 	 }
 	 else
 	 {
-	    gun1Xs = (2 * gun1Xr);
+	    gun1Xs = (2 * gun1Xr) * 0;
 	    gun1Ys = (2 * gun1Yr) * 0.5 + 1733;
 	 }
 
