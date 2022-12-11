@@ -1550,7 +1550,7 @@ void retro_poll_mame_input()
    int gun8Yr = input_state_cb(7, RETRO_DEVICE_LIGHTGUN, 0, RETRO_DEVICE_ID_LIGHTGUN_SCREEN_Y);
    int luckyx = 2 * gun2Xr - 13351;
    int jpark1x = 2 * gun1Xr + 5243;
-   int jpark2x = 2 * gun2Xr - 4423;
+   int jpark2x = 2 * gun2Xr - 5243;
    int gun1Xs, gun2Xs, gun3Xs, gun4Xs, gun5Xs, gun6Xs, gun7Xs, gun8Xs;
    int gun1Ys, gun2Ys, gun3Ys, gun4Ys, gun5Ys, gun6Ys, gun7Ys, gun8Ys;
 
@@ -1767,7 +1767,7 @@ void retro_poll_mame_input()
 	 }
 	 else
 	 {
-	    gun2Xs = (2 * gun2Xr * 1.25 - 16500) * 1.02 - 1500;
+	    gun2Xs = (2 * gun2Xr * 1.25 - 16500) * 1.02 - 3000;
 	    gun2Ys = 2 * gun2Yr * 0.5;
 	 }
 
