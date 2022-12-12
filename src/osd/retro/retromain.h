@@ -283,6 +283,9 @@ const kt_table ktable[] = {
 /* Great Guns */
 #define GREATGUN_LAYOUT	(core_stricmp(machine->gamedrv->name, "greatgun") == 0) || (core_stricmp(machine->gamedrv->parent, "greatgun") == 0)
 
+/* Jurassic Park */
+#define JPARK_LAYOUT	(core_stricmp(machine->gamedrv->name, "jpark") == 0) || (core_stricmp(machine->gamedrv->parent, "jpark") == 0)
+
 /* Lucky & Wild */
 #define LUCKYWLD_LAYOUT	(core_stricmp(machine->gamedrv->name, "luckywld") == 0) || (core_stricmp(machine->gamedrv->parent, "luckywld") == 0)
 
