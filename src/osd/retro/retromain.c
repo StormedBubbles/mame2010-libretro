@@ -1548,7 +1548,6 @@ void retro_poll_mame_input()
    int gun7Yr = input_state_cb(6, RETRO_DEVICE_LIGHTGUN, 0, RETRO_DEVICE_ID_LIGHTGUN_SCREEN_Y);
    int gun8Xr = input_state_cb(7, RETRO_DEVICE_LIGHTGUN, 0, RETRO_DEVICE_ID_LIGHTGUN_SCREEN_X);
    int gun8Yr = input_state_cb(7, RETRO_DEVICE_LIGHTGUN, 0, RETRO_DEVICE_ID_LIGHTGUN_SCREEN_Y);
-   int luckyx = 2 * gun2Xr - 13351;
    int jpark1x = 2 * gun1Xr + 5243;
    int jpark2x = 2 * gun2Xr - 5243;
    int gun1Xs, gun2Xs, gun3Xs, gun4Xs, gun5Xs, gun6Xs, gun7Xs, gun8Xs;
@@ -1672,42 +1671,15 @@ void retro_poll_mame_input()
 	 gun8Xs = 2 * gun8Xr;
 	 gun8Ys = 2 * gun8Yr;
 
-         if (luckyx < -65000) //Zone 1
+	 if (gun2Xr < 0)
 	 {
-   	    gun2Xs = 0.8271 * luckyx;
+	    gun2Xs = ((2 * gun2Xr - 14746) * 0.75 - 3220) * 1.03;
 	 }
-         else if ((luckyx < -63000) && (luckyx >= -65000)) //Zone 2
+	 else
 	 {
-   	    gun2Xs = (0.8271 * luckyx) - 1000;
+            gun2Xs = ((2 * gun2Xr - 14746) * 1.2 + 3220) * 1.03;
 	 }
-         else if ((luckyx < -58000) && (luckyx >= -63000)) //Zone 3
-	 {
-   	    gun2Xs = (0.8271 * luckyx) - 3000;
-	 }
-         else if ((luckyx < -55000) && (luckyx >= -58000)) //Zone 4
-	 {
-   	    gun2Xs = (0.8271 * luckyx) - 2000;
-	 }
-         else if ((luckyx < 0) && (luckyx >= -55000)) //Zone 5
-	 {
-   	    gun2Xs = (0.8271 * luckyx) - 4000;
-	 }
-         else if ((luckyx >= 0) && (luckyx <= 45000)) //Zone 6
-	 {
-   	    gun2Xs = (1.2756 * luckyx) - 4000;
-	 }
-         else if ((luckyx > 45000) && (luckyx <= 48000)) //Zone 7
-	 {
-   	    gun2Xs = (1.2756 * luckyx) + 1000;
-	 }
-         else if ((luckyx > 48000) && (luckyx <= 50000)) //Zone 8
-	 {
-   	    gun2Xs = (1.2756 * luckyx) + 2000;
-	 }
-         else //(luckyx > 50000) Zone 9
-	 {
-   	    gun2Xs = 1.2756 * luckyx;
-	 }
+	 gun2Ys = 2 * gun2Yr;
       }
       else if (lightgun_hack == 7) //gdfs
       {
