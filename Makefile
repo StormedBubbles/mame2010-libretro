@@ -55,7 +55,7 @@ LIBS =
 #-------------------------------------------------
 
 # start with empties for everything
-CCOMFLAGS = -DDISABLE_MIDI
+CCOMFLAGS = -DDISABLE_MIDI -fsigned-char
 CONLYFLAGS =
 COBJFLAGS =
 CPPONLYFLAGS =
