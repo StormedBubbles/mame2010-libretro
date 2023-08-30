@@ -1761,7 +1761,7 @@ void retro_poll_mame_input()
       }
       else if (lightgun_hack == 10) //dday
       {
-         gun1Xs = (int)(((((M_PI - theta1) - atan2[7 * (32767 - gun1Yr),8 * gun1Xr]) / (M_PI - theta1 - theta2) * 191) % 192) - 95.5) / 95.5 * 65536;
+         gun1Xs = (int)(((((M_PI - theta1) - atan2(7 * (32767 - gun1Yr),8 * gun1Xr)) / (M_PI - theta1 - theta2) * 191) % 192) - 95.5) / 95.5 * 65536;
 	 gun1Ys = 2 * gun1Yr;
       }
       else
