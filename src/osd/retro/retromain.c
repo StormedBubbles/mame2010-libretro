@@ -5,6 +5,7 @@ mame2010 - libretro port of mame 0.139
 
 #include <unistd.h>
 #include <stdint.h>
+#include <math.h>
 #include "osdepend.h"
 
 #include "emu.h"
@@ -1193,6 +1194,8 @@ static void initInput(running_machine* machine)
 	  lightgun_hack = 8;
    else if (JPARK_LAYOUT)
 	  lightgun_hack = 9;
+   else if (DDAY_LAYOUT)
+	  lightgun_hack = 10;
    else
 	  lightgun_hack = 0;
 	
@@ -1755,6 +1758,11 @@ void retro_poll_mame_input()
          gun7Ys = 2 * gun7Yr;
          gun8Xs = 2 * gun8Xr;
          gun8Ys = 2 * gun8Yr;
+      }
+      else if (lightgun_hack == 10) //dday
+      {
+         gun1Xs = (int)(((((M_PI - theta1) - atan2[7 * (32767 - gun1Yr),8 * gun1Xr]) / (M_PI - theta1 - theta2) * 191) % 192) - 95.5) / 95.5 * 65536;
+	 gun1Ys = 2 * gun1Yr;
       }
       else
       {
