@@ -274,6 +274,9 @@ const kt_table ktable[] = {
 /* Born to Fight */
 #define BORNTOFI_LAYOUT	(core_stricmp(machine->gamedrv->name, "borntofi") == 0) || (core_stricmp(machine->gamedrv->parent, "borntofi") == 0)
 
+/* D-Day (1982) */
+#define DDAY_LAYOUT	(core_stricmp(machine->gamedrv->name, "dday") == 0) || (core_stricmp(machine->gamedrv->parent, "dday") == 0)
+
 /* Firefox */
 #define FIREFOX_LAYOUT	(core_stricmp(machine->gamedrv->name, "firefox") == 0) || (core_stricmp(machine->gamedrv->parent, "firefox") == 0)
 
