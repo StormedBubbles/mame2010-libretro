@@ -1761,17 +1761,25 @@ void retro_poll_mame_input()
          gun8Xs = 2 * gun8Xr;
          gun8Ys = 2 * gun8Yr;
       }
-      else if (lightgun_hack == 10) //dday
+      else if (lightgun_hack == 10) //dday (gun 1 with 4:3 scaling, gun 2 with 8:7 scaling)
       {
-         gun1Xs = (fmod(((M_PI - (M_PI / 6)) - atan2(7 * (32767 - gun1Yr),8 * gun1Xr)) / (M_PI - (M_PI / 6) - (M_PI / 6)) * 191, 192) - 95.5) / 95.5 * 65536;
+         int ddaygun1 = (fmod(((M_PI - (M_PI / 6)) - atan2(3 * (32767 - gun1Yr),4 * gun1Xr)) / (M_PI - (M_PI / 6) - (M_PI / 6)) * 191 + 192, 192) - 95.5) / 95.5 * 65536;
+	 int ddaygun2 = (fmod(((M_PI - (M_PI * 33 / 180)) - atan2(7 * (32767 - gun2Yr),8 * gun2Xr)) / (M_PI - (M_PI * 33 / 180) - (M_PI * 33 / 180)) * 191 + 192, 192) - 95.5) / 95.5 * 65536;
+	 gun1Xs = ddaygun1;
 	 gun1Ys = 2 * gun1Yr;
+	 gun2Xs = ddaygun2;
+	 gun2Ys = 2 * gun2Yr;
       }
-      else if (lightgun_hack == 11) //dogpatch
+      else if (lightgun_hack == 11) //dogpatch (guns 1-2 with 4:3 scaling, guns 3-4 with 65:56 scaling)
       {
          gun1Xs = 2 * gun1Xr;
 	 gun1Ys = (fmod(((M_PI - (M_PI * 21 / 180)) - atan2(3 * (22015 - gun1Yr),4 * (gun1Xr - 28479))) / (M_PI - (M_PI * 21 / 180) - (M_PI / 2)) * 112, 113) - 56) / 56 * 65536;
          gun2Xs = 2 * gun2Xr;
 	 gun2Ys = (fmod(((M_PI - (M_PI * 21 / 180)) - atan2(3 * (22015 - gun2Yr),4 * (- gun2Xr - 28479))) / (M_PI - (M_PI * 21 / 180) - (M_PI / 2)) * 112, 113) - 56) / 56 * 65536;
+         gun3Xs = 2 * gun3Xr;
+	 gun3Ys = (fmod(((M_PI - (M_PI * 24 / 180)) - atan2(56 * (22015 - gun3Yr),65 * (gun3Xr - 28479))) / (M_PI - (M_PI * 24 / 180) - (M_PI / 2)) * 112, 113) - 56) / 56 * 65536;
+         gun4Xs = 2 * gun4Xr;
+	 gun4Ys = (fmod(((M_PI - (M_PI * 24 / 180)) - atan2(56 * (22015 - gun4Yr),65 * (- gun4Xr - 28479))) / (M_PI - (M_PI * 24 / 180) - (M_PI / 2)) * 112, 113) - 56) / 56 * 65536;
       }
       else
       {
