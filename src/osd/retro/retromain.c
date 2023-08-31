@@ -1196,6 +1196,8 @@ static void initInput(running_machine* machine)
 	  lightgun_hack = 9;
    else if (DDAY_LAYOUT)
 	  lightgun_hack = 10;
+   else if (DOGPATCH_LAYOUT)
+	  lightgun_hack = 11;
    else
 	  lightgun_hack = 0;
 	
@@ -1763,6 +1765,13 @@ void retro_poll_mame_input()
       {
          gun1Xs = (fmod(((M_PI - (M_PI / 6)) - atan2(7 * (32767 - gun1Yr),8 * gun1Xr)) / (M_PI - (M_PI / 6) - (M_PI / 6)) * 191, 192) - 95.5) / 95.5 * 65536;
 	 gun1Ys = 2 * gun1Yr;
+      }
+      else if (lightgun_hack == 11) //dogpatch
+      {
+         gun1Xs = 2 * gun1Xr;
+	 gun1Ys = (fmod(((M_PI - (M_PI * 22 / 180)) - atan2(3 * (22015 - gun1Yr),4 * (gun1Xr - 28479))) / (M_PI - (M_PI * 22 / 180) - (M_PI / 2)) * 111, 112) - 55.5) / 55.5 * 65536;
+         gun2Xs = 2 * gun2Xr;
+	 gun2Ys = (fmod(((M_PI - (M_PI / 2)) - atan2(3 * (22015 - gun2Yr),4 * (gun2Xr + 28479))) / (M_PI - (M_PI * 22 / 180) - (M_PI / 2)) * 111, 112) - 55.5) / 55.5 * 65536;
       }
       else
       {
